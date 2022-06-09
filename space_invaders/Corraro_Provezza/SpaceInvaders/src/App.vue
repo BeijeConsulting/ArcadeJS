@@ -18,15 +18,10 @@
 			}
 		},
 		methods:{
-			init(){
-				this.myVar = setInterval(spostaDiv, 450);
-			},
 			start(){
 				console.log("ENTRO DENTRO START");
 				console.log(this.directionX);
-				if(this.directionX != 0){
-					MovePlayer(this.directionX);
-				}
+				this.myVar = setInterval(spostaDiv, 450);
 			},
 
 			MovePlayer(directionX) {
@@ -56,7 +51,7 @@
 				} else if (key == 32) {
 					/*TODO: SPARA CON BARRA SPAZIATRICE*/
 				}
-				start();
+				MovePlayer(this.directionX);
 			},
 			resetKey() {
 				this.directionX = 0;
@@ -86,7 +81,7 @@
 </script>
 
 <template>
-<div>
+<div v-on:keydown="getKeyCode();" v-on:keyup="resetKey();">
 	<div id="tab" class="divTable">
 				<div class="headRow">
 					<div class="divCell" align="center">
