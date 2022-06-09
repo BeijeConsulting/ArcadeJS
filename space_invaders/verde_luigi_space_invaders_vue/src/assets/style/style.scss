@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+   font-family: 'Press Start 2P', cursive;
+   color: #fff;
+}
+
+.wrapper {
+   height: 100vh;
+   background-color: #1a1a1a;
+}
+
+main {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+
+}
+
+h1 {
+   cursor: default;
+}
+
+.logo {
+   width: 40%;
+   margin-top: 100px;
+   margin-bottom: 50px;
+}
+
+.game {
+   height: 100vh;
+   width: 70%;
+   padding: 40px 0 20px;
+   min-width: 400px;
+   margin: 0 auto;
+}
+
+.player {
+   width: 60px;
+   position: absolute;
+   bottom: 30px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.head_player {
+   background-color: #51bd91;
+   height: 7px;
+   width: 5px;
+}
+.body_player {
+   background-color: #51bd91;
+   width: 60px;
+   height: 25px;
+}
+
+
+.my_space {
+   color: #fff;
+   width: 100%;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-around;
+   margin-bottom: 50px;
+}
+
+.space-invader {
+   border: 2px solid #fff;
+   background-color: #fff;
+   width: 0.25em;
+   height: 0.25em;
+}
+
+.space-invader-defender {
+   box-shadow:
+      0 0 0 .25em #fff,
+      .625em 0 0 .25em #fff,
+      -.625em 0 0 .25em #fff,
+      1em .0625em 0 .1875em #fff,
+      -1em .0625em 0 .1875em #fff,
+      0 -.25em 0 .25em #fff,
+      0 -.625em 0 0 #fff;
+}
+
+.space-invader-ufo {
+   box-shadow:
+      /* Body */
+      -.25em -.625em 0 .125em #fff,
+      .25em -.625em 0 .125em #fff,
+      -.25em -.375em 0 .125em #fff,
+      -.75em -.375em 0 .125em #fff,
+      -1em -.375em 0 .125em #fff,
+      .25em -.375em 0 .125em #fff,
+      .75em -.375em 0 .125em #fff,
+      1em -.375em 0 .125em #fff,
+      0 .125em 0 .125em #fff,
+      -.75em .125em 0 .125em #fff,
+      .75em .125em 0 .125em #fff,
+      -.375em .25em 0 0 #fff,
+      -1.125em .25em 0 0 #fff,
+      .375em .25em 0 0 #fff,
+      1.125em .25em 0 0 #fff,
+      1.375em -.25em 0 0 #fff,
+      1.5em .125em 0 .125em #fff,
+      1.875em .25em 0 0 #fff,
+      -1.375em -.25em 0 0 #fff,
+      -1.5em .125em 0 .125em #fff,
+      -1.875em .25em 0 0 #fff,
+      0 .375em 0 .125em #fff,
+      1.25em .375em 0 .125em #fff,
+      1em .375em 0 .125em #fff,
+      1.125em .75em 0 0 #fff,
+      -1.25em .375em 0 .125em #fff,
+      -1em .375em 0 .125em #fff,
+      -1.125em .75em 0 0 #fff;
+}
+
+.space-invader-1 {
+   box-shadow:
+      0 0 0 .25em #fff,
+      0 .25em 0 .25em #fff,
+      -.625em .375em 0 .125em #fff,
+      .625em .375em 0 .125em #fff,
+      -.75em -.75em 0 0 #fff,
+      .75em -.75em 0 0 #fff,
+      -.5em -.5em 0 0 #fff,
+      .5em -.5em 0 0 #fff,
+      -.75em -.25em 0 0 #fff,
+      -.5em -.25em 0 0 #fff,
+      .5em -.25em 0 0 #fff,
+      .75em -.25em 0 0 #fff,
+      -1em 0 0 0 #fff,
+      -.75em 0 0 0 #fff,
+      .75em 0 0 0 #fff,
+      1em 0 0 0 #fff,
+      -1em .25em 0 0 #fff,
+      1em .25em 0 0 #fff,
+      -.75em .75em 0 0 #fff,
+      .75em .75em 0 0 #fff,
+      /* Left Arm */
+      1.25em .25em 0 0 #fff,
+      1.25em .5em 0 0 #fff,
+      1.25em .75em 0 0 #fff,
+      /* Right Arm */
+      -1.25em .25em 0 0 #fff,
+      -1.25em .5em 0 0 #fff,
+      -1.25em .75em 0 0 #fff,
+      /* Left Foot */
+      -.25em 1em 0 0 #fff,
+      -.5em 1em 0 0 #fff,
+      /* Right Foot */
+      .25em 1em 0 0 #fff,
+      .5em 1em 0 0 #fff;
+}
+
+.space-invader-2 {
+   box-shadow:
+      /* Body */
+      -.125em -.5em 0 .25em #fff,
+      .125em -.5em 0 .25em #fff,
+      -.75em -.375em 0 .125em #fff,
+      -.875em -.375em 0 .125em #fff,
+      .75em -.375em 0 .125em #fff,
+      .875em -.375em 0 .125em #fff,
+      -1em 0 0 .25em #fff,
+      1em 0 0 .25em #fff,
+      -.5em .25em 0 0 #fff,
+      -.25em .25em 0 0 #fff,
+      0 .25em 0 0 #fff,
+      .25em .25em 0 0 #fff,
+      .5em .25em 0 0 #fff,
+      /* Crotch */
+      .3125em .5em 0 0 #fff,
+      .5em .5em 0 0 #fff,
+      .5em .5em 0 0 #fff,
+      -.3125em .5em 0 0 #fff,
+      -.5em .5em 0 0 #fff,
+      -.5em .5em 0 0 #fff,
+      .0625em .75em 0 0 #fff,
+      -.0625em .75em 0 0 #fff,
+      /* Right Leg */
+      -.625em .75em 0 0 #fff,
+      -.8125em .75em 0 0 #fff,
+      -1.0625em 1em 0 0 #fff,
+      -1.25em 1em 0 0 #fff,
+      /* Left Leg */
+      .625em .75em 0 0 #fff,
+      .8125em .75em 0 0 #fff,
+      1.0625em 1em 0 0 #fff,
+      1.25em 1em 0 0 #fff;
+}
+
+.space-invader-3 {
+   box-shadow:
+      /* Body */
+      0 -.625em 0 .125em #fff,
+      -.25em -.375em 0 .125em #fff,
+      .25em -.375em 0 .125em #fff,
+      .625em -.25em 0 0 #fff,
+      -.625em -.25em 0 0 #fff,
+      0 .125em 0 .125em #fff,
+      -.75em .125em 0 .125em #fff,
+      .75em .125em 0 .125em #fff,
+      .375em .25em 0 0 #fff,
+      -.375em .25em 0 0 #fff,
+      /* Crotch */
+      .125em .5em 0 0 #fff,
+      -.125em .5em 0 0 #fff,
+      /* Right Leg */
+      -.625em .5em 0 0 #fff,
+      -.875em .75em 0 0 #fff,
+      -.625em 1em 0 0 #fff,
+      -.625em 1em 0 0 #fff,
+      /* Left Leg */
+      .625em .5em 0 0 #fff,
+      .875em .75em 0 0 #fff,
+      .625em 1em 0 0 #fff,
+      .625em 1em 0 0 #fff;
+}
+
+.space-invader.animate {
+   animation: 1s infinite;
+}
+
+.space-invader-1.animate {
+   animation-name: space-invader-1;
+}
+
+.space-invader-2.animate {
+   animation-name: space-invader-2;
+}
+
+.space-invader-3.animate {
+   animation-name: space-invader-3;
+}
+
+@keyframes space-invader-1 {
+   50% {
+      box-shadow:
+         0 0 0 .25em #fff,
+         0 .25em 0 .25em #fff,
+         -.625em .375em 0 .125em #fff,
+         .625em .375em 0 .125em #fff,
+         -.75em -.75em 0 0 #fff,
+         .75em -.75em 0 0 #fff,
+         -.5em -.5em 0 0 #fff,
+         .5em -.5em 0 0 #fff,
+         -.75em -.25em 0 0 #fff,
+         -.5em -.25em 0 0 #fff,
+         .5em -.25em 0 0 #fff,
+         .75em -.25em 0 0 #fff,
+         -1em 0 0 0 #fff,
+         -.75em 0 0 0 #fff,
+         .75em 0 0 0 #fff,
+         1em 0 0 0 #fff,
+         -1em .25em 0 0 #fff,
+         1em .25em 0 0 #fff,
+         -.75em .75em 0 0 #fff,
+         .75em .75em 0 0 #fff,
+         /* Left Arm */
+         1.25em 0 0 0 #fff,
+         1.25em -.25em 0 0 #fff,
+         1.25em -.5em 0 0 #fff,
+         /* Right Arm */
+         -1.25em 0 0 0 #fff,
+         -1.25em -.25em 0 0 #fff,
+         -1.25em -.5em 0 0 #fff,
+         /* Left Foot */
+         -1em 1em 0 0 #fff,
+         -1em 1em 0 0 #fff,
+         /* Right Foot */
+         1em 1em 0 0 #fff,
+         1em 1em 0 0 #fff;
+   }
+}
+
+@keyframes space-invader-2 {
+   50% {
+      box-shadow:
+         /* Body */
+         -.125em -.5em 0 .25em #fff,
+         .125em -.5em 0 .25em #fff,
+         -.75em -.375em 0 .125em #fff,
+         -.875em -.375em 0 .125em #fff,
+         .75em -.375em 0 .125em #fff,
+         .875em -.375em 0 .125em #fff,
+         -1em 0 0 .25em #fff,
+         1em 0 0 .25em #fff,
+         -.5em .25em 0 0 #fff,
+         -.25em .25em 0 0 #fff,
+         0 .25em 0 0 #fff,
+         .25em .25em 0 0 #fff,
+         .5em .25em 0 0 #fff,
+         /* Crotch */
+         .3125em .5em 0 0 #fff,
+         .5em .5em 0 0 #fff,
+         .625em .5em 0 0 #fff,
+         -.3125em .5em 0 0 #fff,
+         -.5em .5em 0 0 #fff,
+         -.625em .5em 0 0 #fff,
+         .0625em .75em 0 0 #fff,
+         -.0625em .75em 0 0 #fff,
+         /* Right Leg */
+         -.75em .75em 0 0 #fff,
+         -.9375em .75em 0 0 #fff,
+         -.75em 1em 0 0 #fff,
+         -.5em 1em 0 0 #fff,
+         /* Left Leg */
+         .75em .75em 0 0 #fff,
+         .9375em .75em 0 0 #fff,
+         .75em 1em 0 0 #fff,
+         .5em 1em 0 0 #fff;
+   }
+}
+
+@keyframes space-invader-3 {
+   50% {
+      box-shadow:
+         /* Body */
+         0 -.625em 0 .125em #fff,
+         -.25em -.375em 0 .125em #fff,
+         .25em -.375em 0 .125em #fff,
+         .625em -.25em 0 0 #fff,
+         -.625em -.25em 0 0 #fff,
+         0 .125em 0 .125em #fff,
+         -.75em .125em 0 .125em #fff,
+         .75em .125em 0 .125em #fff,
+         .375em .25em 0 0 #fff,
+         -.375em .25em 0 0 #fff,
+         /* Crotch */
+         .125em .5em 0 0 #fff,
+         -.125em .5em 0 0 #fff,
+         /* Right Leg */
+         -.375em .5em 0 0 #fff,
+         -.625em .75em 0 0 #fff,
+         -.875em 1em 0 0 #fff,
+         -.375em 1em 0 0 #fff,
+         /* Left Leg */
+         .375em .5em 0 0 #fff,
+         .625em .75em 0 0 #fff,
+         .875em 1em 0 0 #fff,
+         .375em 1em 0 0 #fff;
+   }
+}
