@@ -1,6 +1,6 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
-import router from "./router";
+
 export default {
   name: "App",
   components: { RouterLink, RouterView },
@@ -22,6 +22,7 @@ h1 {
   width: 100%;
   min-height: 100vh;
   margin: 0 auto;
+  padding: 20px 0;
 }
 
 body {
