@@ -1,0 +1,91 @@
+<html>
+<head>
+<style>
+body{
+    margin: 0 0 0 0;
+    background-color: "#000000";
+}
+.ship {
+	background-color: #00FF00;
+	position: absolute;
+    width: 60px; 
+    height: 30px;
+}
+.bullet {
+    width: 5px; 
+    height: 5px; 
+    background-color: rgb(251, 255, 0); 
+    border-radius: 50%
+}
+.enemy {
+    background-color: #ff0000;
+	position: absolute;
+    width: 60px; 
+    height: 30px;
+}
+</style>
+</head>
+<body onkeydown="getKeyCod()">
+
+<div id="player" class="ship"></div>
+<div id="bullet" class="bullet"></div>
+
+<script>
+const mov = 5;
+
+let quadro = document.getElementById("quadro");
+let pallina = document.getElementById("pallina");
+
+//JSON JavaScript Object Notation
+
+
+let leftDistance = 5;
+let topDistance = 5;
+let leftDistancePallina = 5;
+let topDistancePallina = 5;
+function getKeyCod() {
+	let key = window.event.keyCode;
+	console.log('key :', key);
+	console.log('top :',quadro.offsetTop);	
+	console.log('left :',quadro.offsetLeft);
+	//187 +
+	//189 -
+	//37 38 39 40
+	if (key == 39) {
+		leftDistance += mov;
+		quadro.style.left = leftDistance + "px";
+	} else if (key == 37) {
+		leftDistance -= mov;
+		quadro.style.left = leftDistance + "px";
+	} else if (key == 38) {
+		topDistance -= mov;
+		quadro.style.top = topDistance + "px";
+	} else if (key == 40) {
+		topDistance += mov;
+		quadro.style.top = topDistance + "px";
+	} else if (key == 187) {
+		props.width += 10;
+		props.height += 10;
+		changeProps();
+	} else if (key == 189) {
+		props.width -= 10;
+		props.height -= 10;
+		changeProps();
+	} else if (key == 68) {//d
+		leftDistancePallina += mov;
+		pallina.style.left = leftDistancePallina + "px";
+	} else if (key == 65) {//a
+		leftDistancePallina -= mov;
+		pallina.style.left = leftDistancePallina + "px";
+	} else if (key == 87) {//w
+		topDistancePallina -= mov;
+		pallina.style.top = topDistancePallina + "px";
+	} else if (key == 83) {//s
+		topDistancePallina += mov;
+		pallina.style.top = topDistancePallina + "px";
+	}
+}
+</script>
+
+</body>
+</html>
