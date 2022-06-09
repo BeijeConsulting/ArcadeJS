@@ -3,20 +3,24 @@
         <header>
             <Header/>
         </header>
+            
+        <Field/>
     </div>
 </template>
 
 <script>
 import Header from '../components/Header.vue'
+import Field from '../components/Field.vue'
 
 export default {
     name: 'HomeView',
-    components: { Header },
+    components: { Header, Field },
 }
 </script>
 
 <style>
 .container {
-    background-image: url('/background.png');
+    background-image: url('../assets/img/backgroud.jpg');
+    height: 100%;
 }
 </style>

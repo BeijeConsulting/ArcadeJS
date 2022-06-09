@@ -1,6 +1,6 @@
 <template>
     <header>
-        <img src="../assets/img/Space_invaders_logo.png" alt="Space invaders logo">
+        <img src="../assets/img/logo.svg" alt="Space invaders logo">
     </header>
 </template>
 
@@ -14,7 +14,7 @@ export default {
 header {
     display: flex;
     justify-content: center;
-    padding: 0 1.25rem;
+    padding: 1.25rem 0;
 }
 
 img {
