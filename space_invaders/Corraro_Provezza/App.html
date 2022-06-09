@@ -3,10 +3,10 @@
 <style>
 body{
     margin: 0 0 0 0;
-    background-color: "#000000";
+    background-color: rgb(0, 0, 0);
 }
 .ship {
-	background-color: #00FF00;
+	background-color: rgb(0, 255, 0);
 	position: absolute;
     width: 60px; 
     height: 30px;
@@ -14,11 +14,11 @@ body{
 .bullet {
     width: 5px; 
     height: 5px; 
-    background-color: rgb(251, 255, 0); 
+    background-color: rgb(255, 255, 0); 
     border-radius: 50%
 }
 .enemy {
-    background-color: #ff0000;
+    background-color: rgb(255, 0, 0);
 	position: absolute;
     width: 60px; 
     height: 30px;
@@ -29,12 +29,14 @@ body{
 
 <div id="player" class="ship"></div>
 <div id="bullet" class="bullet"></div>
+<div id="enemy" class="enemy"></div>
 
 <script>
 const mov = 5;
 
 let quadro = document.getElementById("quadro");
 let pallina = document.getElementById("pallina");
+let enemy = document.getElementById("enemy");
 
 //JSON JavaScript Object Notation
 
