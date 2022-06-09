@@ -10,7 +10,9 @@ import { onUnmounted } from 'vue';
 				directionX: 0,
 				leftDistance: 0,
 				idPlayer: null,
+				idGame: null,
 				leftDistance: 0,
+				bullets: []
 			}
 		},
 		methods:{
@@ -51,6 +53,7 @@ import { onUnmounted } from 'vue';
 					this.directionX = -1;
 				} else if (e.keyCode == 32) {
 					/*TODO: SPARA CON BARRA SPAZIATRICE*/
+					this.shoot();
 				}else{
 					this.directionX = 0;	
 				}
@@ -65,9 +68,61 @@ import { onUnmounted } from 'vue';
 				this.directionX = 0;
 				clearInterval(this.idPlayer);
 			},
+			shoot(){
+				this.bullets.push(this.addElement());
+				console.log(this.bullets);
+			},
+			addElement () { 
+				// create a new div element 
+				let newDiv = document.createElement("div"); 
+				newDiv.className='bullet';
+				console.log(this.leftDistance);
+				newDiv.style.top = this.quadro.offsetTop + "px";
+				newDiv.style.left = (this.leftDistance + this.quadro.offsetWidth/2) + "px";
+				newDiv.style.width= "5px"; 
+				newDiv.style.height= "5px"; 
+				newDiv.style.backgroundColor= 'yellow'; 
+				newDiv.style.borderRadius= "50%";
+				newDiv.style.position="absolute";
+				document.body.appendChild(newDiv);
+				return newDiv;
+			},
+			runGame(){
+				for(let i=0;i<this.bullets.length;i++){
+					this.update(i);
+				}
+			},
+			update(i){
+				let bullet = this.bullets[i];
+				//I'm updating the bullet's y position.
+				let mov = 1;
+				let y = bullet.offsetTop;
+				y -= mov;
+				if(y <= -20){
+					this.removeElement(i);
+				}
+				bullet.style.top=y+"px";
+				
+			},
+			removeElement(i){
+				var div = this.bullets[i];
+				let newBullets = [];
+				for(let j = 0; j < this.bullets.length; j++){
+					if(this.bullets[j] == div){
+						continue;
+					}
+					newBullets.push(this.bullets[j]);
+				}
+				this.bullets = newBullets;
+			}
 		},
 		created(){
+			this.idGame = setInterval(this.runGame, 1);
 			this.start();
+			
+		},
+		mounted(){
+			this.quadro = document.getElementById("player");
 		},
 		unmounted(){
 			window.removeEventListener('keyup',this.resetKey);
@@ -84,7 +139,7 @@ import { onUnmounted } from 'vue';
 .ship {
 	background-color: rgb(0, 255, 0);
 	position: absolute;
-	top:80%; 
+	top:90%; 
 	bottom:0%; 
 	right:50%;
 	width: 60px; 

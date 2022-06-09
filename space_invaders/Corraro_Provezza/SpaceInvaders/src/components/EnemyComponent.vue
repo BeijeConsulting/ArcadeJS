@@ -154,5 +154,10 @@
 	float:left;/*fix for  buggy browsers*/
 	display:table-column;
 	width:85px;
+}.bullet {
+	width: 5px; 
+	height: 5px; 
+	background-color: rgb(255, 111, 0); 
+	border-radius: 50%
 }
 </style>
