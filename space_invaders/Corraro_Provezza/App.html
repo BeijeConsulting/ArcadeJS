@@ -3,7 +3,7 @@
 	<head>
 		<style>
 			body{
-				margin: auto;
+				margin: 0 0 0 0;
 				background-color: rgb(0, 0, 0);
 			}
 			.ship {
@@ -31,11 +31,8 @@
 
 			.divTable{
 				display:table;
-				width:auto;
 				border-spacing:20px;
-				margin: auto;
-				width: auto;
-				padding: auto;
+				width: 550px;
 			}
 
 			.divRow{
@@ -52,7 +49,7 @@
 	</head>
 	<body id="body" onkeydown="getKeyCod()" onkeyup="resetKey()">
 		<form id="form1">
-			<div class="divTable">
+			<div id="tab" class="divTable">
 				<div class="headRow">
 					<div class="divCell" align="center">
 						<div id="enemy" class="enemy"></div>
@@ -204,6 +201,36 @@
 			directionX = 0;
 			clearInterval(idPlayer);
 		}
+
+		let tab = document.getElementById("tab"); //tab
+		var myVar = setInterval(spostaDiv, 40); //mettere 400
+		var margin = 0; 
+		let l = window.screen.width;
+		let w = window.innerWidth;
+		let direction = 1;
+
+		function spostaDiv() {
+		if(direction == 1){
+			if (margin >= w - tab.offsetWidth) {
+			margin = (w - tab.offsetWidth - 1);
+			direction = 0;
+        } else {
+			tab.style.marginLeft = margin + "px";
+        }
+        margin += 5;
+		} else{
+			
+			if (margin <= 0) {
+			margin = 1 ;
+			direction = 1;
+		
+        } else {
+			console.log("else", margin);
+			tab.style.marginLeft = margin + "px";
+        }
+		margin -= 5;
+	}
+	}
 		</script>
 
 	</body>
