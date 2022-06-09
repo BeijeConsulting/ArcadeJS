@@ -1,170 +1,35 @@
 <script>
+import PlayerComponent from "./components/PlayerComponent.vue";
+import EnemyComponent from "./components/EnemyComponent.vue";
 	export default{
 		name:"App",
 		data(){
 			return{
-				mov: 5,
-				quadro: document.getElementById("player"),
-				pallina: document.getElementById("bullet"),
-				enemy: document.getElementById("enemy"),
-				directionX: 0,
-				leftDistance: 0,
-				tab: document.getElementById("tab"), //tab
-				myVar: 0, //mettere 400
-				margin: 0,
-				l: window.screen.width,
-				w: window.innerWidth,
-				direction: 1
+				pallina: null,
+				started: false,
 			}
 		},
 		methods:{
 			start(){
 				console.log("ENTRO DENTRO START");
-				console.log(this.directionX);
-				this.myVar = setInterval(spostaDiv, 450);
-			},
-
-			MovePlayer(directionX) {
-				this.leftDistance = this.quadro.offsetLeft;
-				if (this.directionX > 0) {
-					this.leftDistance += this.mov;
-					this.quadro.style.left = this.leftDistance + "px";
-				} else if (this.directionX < 0) {
-					this.leftDistance -= this.mov;
-					this.quadro.style.left = this.leftDistance + "px";
-				} else{
-					
-				}
-			},
-			getKeyCod() {
-				key = window.event.keyCode;
-				console.log('key :', key);
-				console.log('top :',this.quadro.offsetTop);	
-				console.log('left :',this.quadro.offsetLeft);
-				//187 +
-				//189 -
-				//37 38 39 40
-				if (key == 39) {
-					this.directionX = 1;
-				} else if (key == 37) {
-					this.directionX = -1;
-				} else if (key == 32) {
-					/*TODO: SPARA CON BARRA SPAZIATRICE*/
-				}
-				MovePlayer(this.directionX);
-			},
-			resetKey() {
-				this.directionX = 0;
-			},
-			spostaDiv() {
-				if(this.direction == 1){
-				if (this.margin >= this.w - this.tab.offsetWidth) {
-					this.margin = (this.w - this.tab.offsetWidth - 1);
-					this.direction = 0;
-				} else {
-					this.tab.style.marginLeft = this.margin + "px";
-				}
-				this.margin += 7;
-				} else{
-					if (this.margin <= 0) {
-						this.margin = 1 ;
-						this.direction = 1;
-					} else {
-						console.log("else",this.margin);
-						this.tab.style.marginLeft = this.margin + "px";
-						}
-						this.margin -= 7;
-				}
+				this.started = true;
+				this.pallina = document.getElementById("bullet");
+				console.log(this.pallina);
 			}
+		},
+		components:{
+			PlayerComponent,
+			EnemyComponent,
 		}
 	}
 </script>
 
 <template>
-<div v-on:keydown="getKeyCode();" v-on:keyup="resetKey();">
-	<div id="tab" class="divTable">
-				<div class="headRow">
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-				</div>
-				<div class="divRow">
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-				</div>
-				<div class="divRow">
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-						<div class="divCell" align="center"><div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-				</div>
-				<div class="divRow">
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-						<div class="divCell" align="center"><div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-					<div class="divCell" align="center">
-						<div id="enemy" class="enemy"></div>
-					</div>
-				</div>
-	</div>
-
-	<div id="player" class="ship" ></div>
-	<div id="bullet" class="bullet"></div>
+<div>
+	<EnemyComponent  v-if="this.started"></EnemyComponent>
+	<PlayerComponent v-if="this.started"></PlayerComponent> 
+	<!--<div id="bullet" class="bullet"></div>-->
+	<button v-if="!this.started" @click="start()">START</button>
 </div>
 
 </template>
