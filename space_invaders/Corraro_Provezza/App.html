@@ -203,7 +203,7 @@
 		}
 
 		let tab = document.getElementById("tab"); //tab
-		var myVar = setInterval(spostaDiv, 40); //mettere 400
+		var myVar = setInterval(spostaDiv, 450); //mettere 400
 		var margin = 0; 
 		let l = window.screen.width;
 		let w = window.innerWidth;
@@ -217,7 +217,7 @@
         } else {
 			tab.style.marginLeft = margin + "px";
         }
-        margin += 5;
+        margin += 7;
 		} else{
 			
 			if (margin <= 0) {
@@ -228,7 +228,7 @@
 			console.log("else", margin);
 			tab.style.marginLeft = margin + "px";
         }
-		margin -= 5;
+		margin -= 7;
 	}
 	}
 		</script>
