@@ -50,7 +50,7 @@
 			}
 		</style>
 	</head>
-	<body onkeydown="getKeyCod()" onkeyup="resetKey()">
+	<body id="body" onkeydown="getKeyCod()" onkeyup="resetKey()">
 		<form id="form1">
 			<div class="divTable">
 				<div class="headRow">
@@ -137,11 +137,14 @@
 		<div id="bullet" class="bullet"></div>
 
 		<script>
-		const mov = 5;
-
+		const mov = 2;
+		
+		let idPlayer = null;
+		
 		let quadro = document.getElementById("player");
 		let pallina = document.getElementById("bullet");
 		let enemy = document.getElementById("enemy");
+		let body = document.getElementById("body");
 
 		//JSON JavaScript Object Notation
 		let directionX = 0;
@@ -149,28 +152,36 @@
 		console.log(quadro.style.left);
 		let leftDistance = quadro.offsetLeft;
 		function start(){
-			console.log("ENTRO DENTRO START");
-			console.log(directionX);
-			if(directionX != 0){
-				MovePlayer(directionX);
-			}
+			MovePlayer(directionX);
 		}
-
 		function MovePlayer(directionX) {
 			
 			//187 +
 			//189 -
 			//37 38 39 40
-			if (directionX > 0) {
-				leftDistance += mov;
+			clearInterval(idPlayer);
+			idPlayer = setInterval(frame, 0.1);
+			function frame() {
+				console.log("InnerWidth= " + window.innerWidth);
+				console.log("quadro.offsetWidth= " + quadro.offsetWidth);
+				if(leftDistance <= 0){
+					leftDistance = 1;
+					directionX = 0;
+				}else if((leftDistance + quadro.offsetWidth) >= (window.innerWidth-1)){
+					directionX = 0;
+					leftDistance = window.innerWidth - (2+quadro.offsetWidth);
+				}
+				if (directionX > 0) {
+					leftDistance += mov;
+					
+				} else if (directionX < 0) {
+					leftDistance -= mov;
+					
+				}
 				quadro.style.left = leftDistance + "px";
-			} else if (directionX < 0) {
-				leftDistance -= mov;
-				quadro.style.left = leftDistance + "px";
-			} else{
-				
 			}
 		}
+		
 		function getKeyCod() {
 			let key = window.event.keyCode;
 			console.log('key :', key);
@@ -183,13 +194,15 @@
 				directionX = 1;
 			} else if (key == 37) {
 				directionX = -1;
-			} else if (key == 32) {
+			}
+			if (key == 32) {
 				/*TODO: SPARA CON BARRA SPAZIATRICE*/
 			}
 			start();
 		}
 		function resetKey() {
 			directionX = 0;
+			clearInterval(idPlayer);
 		}
 		</script>
 
