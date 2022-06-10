@@ -322,22 +322,22 @@
 <template>
 	<div>
 		<b v-if="!this.gameover && !this.winner" style="background-color: green; position: fixed; top:0%; left: 1%;">
-			<img src="../space-ship-3-icon.png" class = "enemyIcon"/> Lives: {{this.lives}}
+			<img src="../assets/space-ship-3-icon.png" class = "enemyIcon"/> Lives: {{this.lives}}
 		</b>
 		<b v-if="!this.gameover && !this.winner" style="background-color: green; position: fixed; top:0%; right: 1%;">
-			<img src="../space-invader-icon.png" class = "enemyIcon"/> Score: {{this.score}}
+			<img src="../assets/space-invader-icon.png" class = "enemyIcon"/> Score: {{this.score}}
 		</b>
 		<div v-if="!this.gameover && !this.winner" id="tab" class="divTable">
 			<div class="divRow" v-for="(x,i) in 4" :key="i">
 				<div class="divCell" align="center" v-for="(y,j) in 11" :key="j">
 					<div :id="11*i+j" class="enemy">
-						<img src="../space-invader-icon.png" class = "enemySprite"/>
+						<img src="../assets/space-invader-icon.png" class = "enemySprite"/>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div  v-if="!this.gameover && !this.winner" id="player" class="ship">
-			<img src="../space-ship-3-icon.png" class = "shipSprite"/>
+			<img src="../assets/space-ship-3-icon.png" class = "shipSprite"/>
 		</div>
 		<b v-if="this.gameover" style="background-color: red; position: absolute;" v>
 			{{this.cleanAll()}}
