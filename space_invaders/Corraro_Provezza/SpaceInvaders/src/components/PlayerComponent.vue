@@ -76,6 +76,7 @@ import { onUnmounted } from 'vue';
 				// create a new div element 
 				let newDiv = document.createElement("div"); 
 				newDiv.className='bullet';
+				newDiv.id='bullet';
 				console.log(this.leftDistance);
 				newDiv.style.top = this.quadro.offsetTop + "px";
 				newDiv.style.left = (this.leftDistance + this.quadro.offsetWidth/2) + "px";
@@ -98,28 +99,32 @@ import { onUnmounted } from 'vue';
 				let mov = 1;
 				let y = bullet.offsetTop;
 				y -= mov;
-				if(y <= -20){
-					this.removeElement(i);
+				if(y <= 0){
+					this.removeElement(this.bullets,i);
 				}
 				bullet.style.top=y+"px";
 				
 			},
-			removeElement(i){
-				var div = this.bullets[i];
+			removeElement(elements,i){
+				var div = elements[i];
 				let newBullets = [];
-				for(let j = 0; j < this.bullets.length; j++){
-					if(this.bullets[j] == div){
+				for(let j = 0; j < elements.length; j++){
+					if(elements[j] == div){
 						continue;
 					}
-					newBullets.push(this.bullets[j]);
+					newBullets.push(elements[j]);
 				}
 				this.bullets = newBullets;
+				div.parentNode.removeChild(div);
 			}
 		},
 		created(){
 			this.idGame = setInterval(this.runGame, 1);
 			this.start();
 			
+		},updated(){
+			clearInterval(this.idGame);
+			this.idGame = setInterval(this.runGame, 1);
 		},
 		mounted(){
 			this.quadro = document.getElementById("player");
