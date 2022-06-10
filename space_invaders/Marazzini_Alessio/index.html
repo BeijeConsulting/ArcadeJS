@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Space Invaders</title>
+		<style>
+		body, html {
+		 overflow: hidden;
+		 }
+    #space {
+      width:100%;
+      height:100%;
+      z-index: -1;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+    #gamecontainer {
+      width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+ 		</style>
+	</head>
+	<body>
+    <div id="space"></div>
+    <div id="gamecontainer">
+        <canvas id="gameCanvas"></canvas>
+    </div>
+		<script src="js/spazio.js"></script>
+		<script src="js/spaceinvaders.js"></script>
+
+		<script>
+    var container = document.getElementById('space');
+    var space = new Space();
+    space.inizializzazione(container);
+    space.inizia();
+
+
+	/* set-up di canvas */
+    var canvas = document.getElementById("gameCanvas");
+    canvas.width = 800;
+    canvas.height = 600;
+
+    var game = new Game();
+
+    /* inizializzo il game con gameCanvas */
+    game.inizializzazione(canvas);
+
+    game.inizia();
+
+    /* le successive due funzioni servono per tenere il processo in ascolto di eventuali digitazioni di tasti*/
+    window.addEventListener("keydown", function keydown(e) {
+        var keycode = e.which || window.event.keycode;
+        if(keycode == 37 || keycode == 39 || keycode == 32) {
+            e.preventDefault();
+        }
+        game.keyDown(keycode);
+    });
+    window.addEventListener("keyup", function keydown(e) {
+        var keycode = e.which || window.event.keycode;
+        game.keyUp(keycode);
+    });
+		</script>
+	</body>
+</html>
