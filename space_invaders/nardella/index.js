@@ -193,14 +193,16 @@ const keys = {
     },
     space: {
         pressed: false
+    },
+    x: {
+        pressed: false
     }
 }
 
 let frames = 0
 
-
-
 function animate() {
+    
     if (player.lives > 0) {
         const speed = 7
         window.requestAnimationFrame(animate)
@@ -231,15 +233,15 @@ function animate() {
                 }
             }))
         }
-        
+
         stars.forEach((star, index) => {
-            if(star.position.y > 1000){
+            if (star.position.y > 1000) {
                 stars.splice(index, 1)
             }
-            else{
+            else {
                 star.update();
             }
-            
+
         })
 
         enemyProjectiles.forEach((enemyProjectile, index) => {
@@ -285,8 +287,11 @@ function animate() {
                 if (invader.position.y > player.position.y - player.height + 5) {
                     player.lives = 0
                 }
-
+                if(keys.x.pressed && invader.position.x > player.position.x - 50 && invader.position.x < player.position.x + 50){
+                    grid.invaders.splice(i, 1)
+                }
                 projectiles.forEach((projectile, index) => {
+                    
                     if (projectile.position.x > invader.position.x && projectile.position.x < invader.position.x + 40 && projectile.position.y > invader.position.y && projectile.position.y < invader.position.y + 50) {
                         grid.invaders.splice(i, 1)
                         projectiles.splice(index, 1)
@@ -344,6 +349,8 @@ function animate() {
         c.font = "150px Arial";
         c.fillStyle = "white"
         c.fillText("GAME OVER", 500, 500)
+        c.font = "50px Arial";
+        c.fillText("Press ESC to restart", 700, 700)
     }
     c.strokeStyle = "red"
     c.lineWidth = 1
@@ -351,6 +358,17 @@ function animate() {
     c.moveTo(0, 835)
     c.lineTo(1920, 835)
     c.stroke()
+    if (keys.x.pressed && frames % 2 === 0) {
+        c.strokeStyle = "white"
+        c.lineWidth = 50
+        c.beginPath()
+        c.moveTo(player.position.x + player.width / 2, player.position.y)
+        c.lineTo(player.position.x + player.width / 2, 0)
+        c.stroke()
+    }
+
+
+    
 }
 
 animate()
@@ -358,7 +376,7 @@ animate()
 
 
 window.addEventListener('keydown', ({ key }) => {
-
+    console.log(key)
     switch (key) {
         case 'a':
             keys.a.pressed = true
@@ -368,6 +386,12 @@ window.addEventListener('keydown', ({ key }) => {
             break;
         case ' ':
             keys.space.pressed = true
+            break;
+        case 'x':
+            keys.x.pressed = true
+            break;
+        case 'Escape':
+            window.location.reload()
             break;
     }
 })
@@ -379,6 +403,9 @@ window.addEventListener('keyup', ({ key }) => {
             break;
         case 'd':
             keys.d.pressed = false
+            break;
+        case 'x':
+            keys.x.pressed = false
             break;
         case ' ':
             keys.space.pressed = false
