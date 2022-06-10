@@ -60,21 +60,26 @@ h1 {
    height: 25px;
 }
 
+.animation_lose {
+   animation-name: lose;
+   animation-duration: .7s;
+   animation-iteration-count: 5;
+}
+
 
 .my_space {
    color: #fff;
-   width: 100%;
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: space-around;
-   margin-bottom: 50px;
+   display: inline-block;
+   position: relative;
 }
 
 .space-invader {
    border: 2px solid #fff;
+   display: inline-block;
    background-color: #fff;
    width: 0.25em;
    height: 0.25em;
+   margin: 20px 30px;
 }
 
 .space-invader-defender {
@@ -347,4 +352,24 @@ h1 {
          .875em 1em 0 0 #fff,
          .375em 1em 0 0 #fff;
    }
+}
+
+@keyframes lose {
+   0% {
+      background-color: transparent;
+   }
+   50% {
+      background-color: #51bd91;
+   }
+   100% {
+      background-color: transparent;
+   }
+}
+
+.title {
+   z-index: 1000;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%)
 }
