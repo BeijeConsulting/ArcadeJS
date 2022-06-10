@@ -30,18 +30,24 @@ export class Grid{
             else if (invader.entity.position.x<=0)
             {
                 updSpeed={x:6,y:0};
-                down=true;
+                
             }
-            invader.fire();
+            invader.fire(projectiles);
             
         })
         this.speed=updSpeed;
-        if(down)this.speed.y=20;
+        if(down)this.speed.y=40;
         else this.speed.y=0;
     }
-    kill(invader)
+    kill(invader,explosions)
     {
-        this.invaders.splice(invader,1);
+        this.invaders[invader].entity.image.src="./img/explosion.png";
+            setTimeout(() => {
+                this.invaders.splice(invader,1);   
+            }, 200);
+          
+        
+        
     }
 
 }

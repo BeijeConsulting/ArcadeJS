@@ -74,7 +74,7 @@ export class Player{
     }
 Control(height,width)
 {
-    let speed = 5;
+    let speed = 9;
     /*if(this.keys.w.pressed&&(this.entity).position.y>=0) (this.entity).speed.y=-speed;
     else if(this.keys.s.pressed&&(this.entity).position.y<=(height-this.entity.hitBox.height)) (this.entity).speed.y=speed;
     else (this.entity).speed.y=0;
