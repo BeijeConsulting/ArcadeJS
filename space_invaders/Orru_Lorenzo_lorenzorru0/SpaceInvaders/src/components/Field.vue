@@ -17,13 +17,13 @@
                 <div v-if="!startButton" id="enemiesDiv" class="enemies">
                     <div id="enemiesMove">
                         <div class="d-flex">
-                            <div class="m-10" v-for="(x, i) in 10" :key="i + 'a'"><div class="space-invader space-invader-3 classic"></div></div>
+                            <div class="m-10" v-for="(x, i) in 10" :key="i + 'a'"><div class="enemy invader-3"><div class="space-invader space-invader-3 classic"></div></div></div>
                         </div>
                         <div class="d-flex">
-                            <div class="m-10" v-for="(x, i) in 10" :key="i + 'b'"><div class="space-invader space-invader-2 classic"></div></div>
+                            <div class="m-10" v-for="(x, i) in 10" :key="i + 'b'"><div class="enemy invader-2"><div class="space-invader space-invader-2 classic"></div></div></div>
                         </div>
                         <div class="d-flex">
-                            <div class="m-10" v-for="(x, i) in 10" :key="i + 'b'"><div class="space-invader space-invader-1 classic"></div></div>
+                            <div class="m-10" v-for="(x, i) in 10" :key="i + 'b'"><div class="enemy invader-1"><div class="space-invader space-invader-1 classic"></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -53,9 +53,11 @@ export default {
             enemiesX: 0,
             startShoot: 25.5,
             bullets: [],
+            enemies: [],
             numBullets: 0,
             indexBullet: 0,
-            enemiesLeft: false
+            enemiesLeft: false,
+            movement: 0
         }
     },
     methods: {
@@ -91,38 +93,68 @@ export default {
             setInterval(() => {
                 let bullet = {
                     index: this.indexBullet,
-                    y: 31,
+                    y: 0,
                     x: this.startShoot + 3.5
                 };
 
                 this.indexBullet = this.indexBullet + 1;
                 this.bullets.push(bullet);
                 this.numBullets = this.numBullets + 1;
-            }, 900);
+            }, 1200);
         },
         moveBullet() {
-            let bullet = this.bullets[this.bullets.length - 1];
+            let bulletToMove = this.bullets[this.bullets.length - 1];
             let bulletDiv = document.createElement("div");
             bulletDiv.style.width = ".1875rem";
             bulletDiv.style.height = ".5rem";
             bulletDiv.style.backgroundColor = "#18f818";
             bulletDiv.style.position = "absolute";
 
-            let startPos = this.startShoot + 3.5;
+            let startPos = this.startShoot - 1.5;
             bulletDiv.style.left = `${startPos}px`;
-            bulletDiv.style.bottom = "31px";
-
-            let container = document.getElementById("shooterDiv");
-            container.appendChild(bulletDiv);
+            bulletDiv.style.bottom = "0px";
 
             let enemiesDiv = document.getElementById("enemiesDiv");
+            enemiesDiv.appendChild(bulletDiv);
 
-            setInterval(() => {
-                if(bullet.y < enemiesDiv.clientHeight + 31) {
-                    bullet.y = bullet.y + 3;
-                    bulletDiv.style.bottom = `${bullet.y}px`;
-                } else {
-                    bulletDiv.remove();
+            let isThere = true;
+
+            let intervalI = setInterval(() => {
+                let targetEnemies = this.enemies;
+
+                let bullet = {x: bulletDiv.offsetLeft, y: bulletDiv.offsetTop, height: 8, width: 3};
+
+                for(let i=0; i< targetEnemies.length; i++){
+                    let enemy = {x: targetEnemies[i].offsetLeft, y: targetEnemies[i].offsetTop, height: 46, width: 46};
+                    console.log(targetEnemies[2].offsetLeft);
+
+                    //rect1.x < rect2.x + rect2.w && rect1.x + rect1.w > rect2.x && rect1.y < rect2.y + rect2.h && rect1.h + rect1.y > rect2.y
+                    if(bullet.x < enemy.x + enemy.width && bullet.x + bullet.width > enemy.x && bullet.y < enemy.y + enemy.height && bullet.y + bullet.height > enemy.y) {
+                        console.log(`enemy.y: ${enemy.y}, bullet.y : ${bullet.y}`);
+                        console.log(`enemy.x: ${enemy.x}, bullet.x : ${bullet.x}`);
+                        isThere = false;
+                        if(targetEnemies[i].classList.contains('invader-3')) {
+                            this.score = this.score + 30;
+                        } else if(targetEnemies[i].classList.contains('invader-2')) {
+                            this.score = this.score + 20;
+                        } else if(targetEnemies[i].classList.contains('invader-1')) {
+                            this.score = this.score + 10;
+                        }
+                        targetEnemies[i].remove();
+                        clearInterval(intervalI);
+                        bulletDiv.remove();
+                        break;
+                    }
+                }
+
+                if(isThere) {
+                    if(bulletToMove.y < enemiesDiv.clientHeight - 8) {
+                        bulletToMove.y = bulletToMove.y + 3;
+                        bulletDiv.style.bottom = `${bulletToMove.y}px`;
+                    } else {
+                        clearInterval(intervalI);
+                        bulletDiv.remove();
+                    }
                 }
 
             }, 15);
@@ -130,6 +162,7 @@ export default {
         moveEnemies() {
             setInterval(() => {
                 let enemiesDiv = document.getElementById('enemiesMove');
+                this.movement = this.movement + 1;
                 if(!this.enemiesLeft) {
                     if(this.enemiesY == 180) {
                         this.enemiesLeft = !this.enemiesLeft;
@@ -163,6 +196,9 @@ export default {
         },
         numBullets: function() {
             this.moveBullet();
+        },
+        movement: function() {
+            this.enemies = document.getElementsByClassName("enemy");
         }
     },
     created() {
@@ -170,6 +206,9 @@ export default {
         if(hScore) {
             this.highScore = hScore;
         }
+    },
+    mounted() {
+        this.enemies = document.getElementsByClassName("enemy");
     },
     unmounted() {
         window.removeEventListener('keydown', this.doCommand);
@@ -201,6 +240,7 @@ export default {
 }
 
 .m-10 {
+    width: 3.5rem;
     margin: 10px;
 }
 
@@ -234,9 +274,9 @@ img {
 
 .enemies {
     height: 95%;
-    padding: 0 1.875rem;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 #enemiesMove {
@@ -246,7 +286,6 @@ img {
 
 .shooter {
     height: 5%;
-
 }
 
 .shooterImg {
