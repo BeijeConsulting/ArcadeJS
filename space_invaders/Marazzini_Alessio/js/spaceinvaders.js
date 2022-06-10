@@ -75,11 +75,9 @@ Game.prototype.cambiaStato = function(state) {
     if(this.statoCorrente()) {
         this.listaStati.pop();
     }
-
     if(state.enter) {
         state.enter(game);
     }
-
     this.listaStati.push(state);
 };
 
@@ -243,7 +241,6 @@ PlayState.prototype.mostra = function(game, dt, ctx) {
     ctx.textBaseline="center";
     ctx.textAlign="center";
     ctx.fillText("Vite: "+game.vite, 175, 100);
-
 };
 
 

@@ -36,19 +36,19 @@
     space.inizia();
 
 
-	/* set-up di canvas */
+	/*set-up di canvas */
     var canvas = document.getElementById("gameCanvas");
     canvas.width = 800;
     canvas.height = 600;
 
     var game = new Game();
 
-    /* inizializzo il game con gameCanvas */
+    /*inizializzo il game con gameCanvas */
     game.inizializzazione(canvas);
 
     game.inizia();
 
-    /* le successive due funzioni servono per tenere il processo in ascolto di eventuali digitazioni di tasti*/
+    /*le successive due funzioni servono per tenere il processo in ascolto di eventuali digitazioni di tasti*/
     window.addEventListener("keydown", function keydown(e) {
         var keycode = e.which || window.event.keycode;
         if(keycode == 37 || keycode == 39 || keycode == 32) {
