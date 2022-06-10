@@ -61,8 +61,9 @@ function Loop(){
     }
     if(count%spawnSpeed==0)
     grids.push(new Grid(canvas));
-    if(count%spawnSpeed==18000)
+    if(count%18000==0&&spawnSpeed>150){
     spawnSpeed-=50
+    }
     if(pla.entity.exploded)
     {
         setTimeout(()=>{
