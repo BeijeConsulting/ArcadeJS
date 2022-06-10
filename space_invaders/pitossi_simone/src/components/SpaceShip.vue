@@ -5,13 +5,7 @@
 
 
 <style>
-.ship {
-  background-color: #00ff00;
-  margin: 20px;
-  width: 30px;
-  height: 15px;
-  margin-top: 58%;
-}
+
 </style>
 
 <script>

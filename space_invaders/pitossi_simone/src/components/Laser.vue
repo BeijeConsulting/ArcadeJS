@@ -1,5 +1,5 @@
 <template>
-  <div id="laser" class="laser"></div>
+  <div id="laser" class="laser  d-flex justify-content-center flex-wrap position-absolute"></div>
 </template>
 
 
@@ -10,6 +10,7 @@
   margin: 20px;
   width: 2px;
   height: 10px;
+  z-index: 1000;
 }
 </style>
 
