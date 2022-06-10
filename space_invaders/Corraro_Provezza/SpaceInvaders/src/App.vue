@@ -21,8 +21,8 @@ import PlayerComponent from "./components/PlayerComponent.vue";
 	}
 </script>
 
-<template>
-<div>
+<template class="container">
+<div class="gameArea">
 	<PlayerComponent v-if="this.started"></PlayerComponent> 
 	<!--<div id="bullet" class="bullet"></div>-->
 	<button v-if="!this.started" @click="init()">START</button>
@@ -33,6 +33,18 @@ import PlayerComponent from "./components/PlayerComponent.vue";
 <style>
 body{
 	margin: 0 0 0 0;
-	background-color: rgb(0, 00, 0);
+	background-color: rgb(0, 0, 0);
+	min-width: 1087px;
+}
+
+.gameArea{
+	width: auto;
+	height: auto;
+}
+
+.container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 </style>
