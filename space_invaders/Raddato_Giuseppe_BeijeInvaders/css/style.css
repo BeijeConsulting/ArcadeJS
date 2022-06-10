@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+canvas {
+  border: 1px solid black;
+  align-items: center;
+  font-family: 'Press Start 2P', cursive;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #B12009;
+  color: azure;
+
+}
+
+html {
+  display: table;
+  margin: auto;
+}
+
+body,
+.item {
+  font-family: 'Press Start 2P', cursive;
+  display: table-cell;
+  
+}
+
+h1 {
+  text-align: center;
+  font-size: 40px;
+}
+
+h5 {
+  text-align: right;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+}
+
+.nes-container {
+  background-color: azure;
+  color: #000;
+  justify-content: center;
+}

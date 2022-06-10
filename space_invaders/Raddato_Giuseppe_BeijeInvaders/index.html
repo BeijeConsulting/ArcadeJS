@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Beije Invaders</title>
+  
+  <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+    
+  <link href="css/style.css" rel="stylesheet" />
+  <script>
+    
+function redirect(){
+    window.location.replace('game.html')
+}
+  function cambio(){
+    
+   let selected= document.getElementById("default_select") ;
+   
+   let valore=selected.value;
+   let testo=selected.options[ selected.selectedIndex ].text;
+
+   let chat= document.getElementById("chat");
+   let html="<section class='message -right'> <div class='nes-balloon from-right'><p>"+
+    ""+testo+"</div></section>";
+    chat.insertAdjacentHTML('beforeend',html);
+
+    let msg="";
+    
+
+ 
+   if(valore==0){
+        msg="Ok Clicca qui per giocare!!! <button type='button' id='start' class='nes-btn is-success' onclick='redirect()'>Vai a gioco</button>";
+  
+       
+   }
+   if(valore==1){
+        
+    msg="Le immagini parlano più delle parole. Guarda questo vido per chiarirti le idee<br> <video width='100%'' height='290' preload='metadata' controls autoplay controlslist='nodownload'"+
+         "poster='/static/media/posterVideoAcademy.4e8c756b6038608e8d9b.jpg' style='visibility: visible;'>"+
+         "<source src='https://beije-people-first.s3.eu-south-1.amazonaws.com/site/academy_video.mp4' type='video/mp4'></video>";
+   }
+   if(valore==2){
+     msg="<b>Beije</b> è più di un azienda, siamo una community di professionisti informatici, ricercatori di nuovi talenti e marketers con un obiettivo: le <b>persone</b> al <b>centro</b> del nostro <b>futuro</b>."+
+        "È la condivisione di uno scopo comune, è un approccio “out of the box”, è il rapporto con il cliente, è un sistema <b>People First.</b> "+
+        " Ma non voglio prolungarmi ulteriormente quindi ti rimando ai nostri contatti<br>"+
+        " <a href='https://www.facebook.com/beijepeoplefirst' target='_blank' rel='noopener' aria-label='facebook'>"+
+         " <i class='nes-icon facebook'></i></a>"+
+         " <a href='https://www.linkedin.com/company/beije/mycompany/verification/' target='_blank' rel='noopener' aria-label='linkedin'>"+
+         " <i class='nes-icon linkedin'></i></a>"+
+         " <a href='https://www.youtube.com/channel/UCGZdqNE152QBvg9WZ4E65Iw' target='_blank' rel='noopener' aria-label='youtube'>"+
+         " <i class='nes-icon youtube'></i></a>"+
+         " <a href='https://www.beije.it/it/' target='_blank' rel='noopener' aria-label='goole'>"+
+         " <i class='nes-icon google'></i></a>";
+   }
+   let responseHtml="<section class='message -left'>    <i class='nes-bcrikko'></i><div class='nes-balloon from-left'><p>"+
+    ""+msg+"</div></section>";
+   chat.insertAdjacentHTML('beforeend',responseHtml);
+
+   console.log(valore,testo);
+  }
+
+    </script>
+<style>
+    .chat {
+        width: 750px;
+        
+        background-color: aqua;
+        float: top;
+        
+         justify-content: center;
+    }
+
+</style>
+</head>
+
+
+<body>
+<div class="nes-container is-rounded  is-centered">
+  <h1>Beije Invaders</h1>
+  <h4>Backend Edition</h4>
+</div>
+<BR><BR>
+<div class="chat">
+    <section class="nes-container" >
+        <section class="message-list" id="chat">
+          <section class="message -left">
+            <i class="nes-bcrikko"></i>
+            <!-- Balloon -->
+            <div class="nes-balloon from-left">
+              <p>Benvenuto in Beije Invaders</p>
+            </div>
+          </section>
+          <section class="message -left">
+            <i class="nes-bcrikko"></i>
+            <!-- Balloon -->
+            <div class="nes-balloon from-left">
+              <p>Cosa vuoi fare?</p>
+            </div>
+          </section>
+      
+          
+        </section>
+      </section>
+
+</div>
+<label for="default_select">Default select</label>
+<div class="nes-select">
+  <select required id="default_select" onchange="cambio()">
+    <option value="" disabled selected hidden>Select...</option>
+    <option value="0">Voglio Giocare</option>
+    <option value="1">Voglio più informazioni sull' accademy</option>
+    <option value="2">Voglio più informazioni Su Beije</option>
+  </select>
+</div>
+
+
+
+
+
+</body>
+
+</html>
