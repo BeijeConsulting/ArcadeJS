@@ -1,0 +1,137 @@
+<html>
+
+<head>
+	<style>
+		body {
+			margin: 0 0 0 0;
+		}
+
+		.quadro {
+			background-color: #00FF00;
+			position: absolute;
+		}
+
+		.score {
+			display: flex;
+			justify-content: center;
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 24px;
+			color: white;
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body onkeydown="getKeyCod()">
+
+	<div id="player1" class="quadro" style="background-color: white"></div>
+	<div id="player2" class="quadro" style="background-color: white"></div>
+	<div id="pallina" class="quadro" style="width: 20px; height: 20px; background-color: white"></div>
+	<div id="punteggio" class="score" >
+		<p id="score1">0</p>
+		<p>-</p>
+		<p id="score2">0</p>
+	</div>
+	<script>
+		const H_dim = window.innerWidth;
+		const V_dim = window.innerHeight;
+
+		let mov_X = H_dim/60;
+		let mov_Y = V_dim/80;
+		let mov_P = H_dim/10;
+
+		let height = 100;
+		let width = 20;
+	
+		let player1 = document.getElementById("player1");
+		let player2 = document.getElementById("player2");
+		let pallina = document.getElementById("pallina");
+		let score1 = document.getElementById("score1");
+		let score2 = document.getElementById("score2");
+
+		player1.style.height = height + "px";
+		player2.style.height = height + "px";
+		player1.style.width = width + "px";
+		player2.style.width = width + "px";
+		player2.style.left = H_dim - width + "px";
+		document.body.style.backgroundColor = "black";
+
+		let topDistance1 = 0;
+		let topDistance2 = 0;
+		let leftDistancePallina = H_dim / 2;
+		let topDistancePallina = V_dim / 2;
+
+		id = setInterval(frame, 5);
+
+		function bounceX() {
+			mov_X = -mov_X;
+		}
+
+		function bounceY() {
+			mov_Y = -mov_Y;
+		}
+
+		function frame() {
+
+			if (leftDistancePallina > H_dim - parseInt(pallina.style.width)) {
+				bounceX();
+				score1.innerHTML=parseInt(score1.innerHTML)+1;
+			}
+			if (mov_X < 0 && leftDistancePallina < 0) {
+				bounceX();
+				score2.innerHTML=parseInt(score2.innerHTML)+1;
+			}
+			if (topDistancePallina > V_dim - parseInt(pallina.style.width)) {
+				bounceY();
+			}
+			if (mov_Y < 0 && topDistancePallina < 0) {
+				bounceY();
+			}
+
+			if (leftDistancePallina <= width && topDistancePallina >= topDistance1 && topDistancePallina <= topDistance1 + height) {
+				bounceX();
+			}
+
+			if (leftDistancePallina >= H_dim - width - parseInt(pallina.style.width) && topDistancePallina >= topDistance2 && topDistancePallina <= topDistance2 + height) {
+				bounceX();
+			}
+
+			leftDistancePallina += mov_X;
+			topDistancePallina += mov_Y;
+			pallina.style.left = leftDistancePallina + "px";
+			pallina.style.top = topDistancePallina + "px";
+		}
+
+		function getKeyCod() {
+			let key = window.event.keyCode;
+			console.log('key :', key);
+			console.log('top1 :', player1.offsetTop);
+			console.log('top2 :', player2.offsetTop);
+	//187 +
+	//189 -
+	//37 38 39 40
+	/*if (key == 39) {
+		leftDistance += mov;
+		quadro.style.left = leftDistance + "px";
+	} else if (key == 37) {
+		leftDistance -= mov;
+		quadro.style.left = leftDistance + "px";
+	} else*/ if (key == 38 && topDistance1 > 0) {
+				topDistance1 -= mov_P;
+				player1.style.top = topDistance1 + "px";
+			} else if (key == 40 && topDistance1 < window.innerHeight - height) {
+				topDistance1 += mov_P;
+				player1.style.top = topDistance1 + "px";
+			} else if (key == 87 && topDistance2 > 0) {//w
+				topDistance2 -= mov_P;
+				player2.style.top = topDistance2 + "px";
+			} else if (key == 83 && topDistance2 < window.innerHeight - height) {//s
+				topDistance2 += mov_P;
+				player2.style.top = topDistance2 + "px";
+			}
+		}
+	</script>
+
+</body>
+
+</html>
