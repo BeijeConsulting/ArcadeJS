@@ -1,6 +1,9 @@
 export class Entity{
     constructor(x,y,img){
+    this.markedForDelete=false;
     this.rotation=0;
+    this.exploded=false;
+    this.logged=false;
     this.position={
         x: x,
         y: y,
@@ -25,6 +28,11 @@ export class Entity{
     update(){
         this.position.x+=this.speed.x;
         this.position.y+=this.speed.y;
+    }
+    explode(src)
+    {
+        this.image.src=src;
+        this.exploded=true;
     }
     
     }

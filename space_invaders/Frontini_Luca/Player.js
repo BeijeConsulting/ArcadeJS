@@ -7,6 +7,10 @@ export class Player{
         this.weapon={speed:-12,size:{x:20,y:15},img:"./img/blue-proj.png"};
         this.entity.position.y-=this.entity.hitBox.height+this.entity.hitBox.height/2;
         this.cooldown=false;
+        this.regen=null;
+        this.invuln=false;
+        this.shield=2;
+        this.hull=1;
          addEventListener('keydown',({key}) =>{
             switch(event.key)
             {
@@ -91,5 +95,47 @@ Fire(projectiles)
     projectiles.push(new Projectile(new Entity(this.entity.position.x+(this.entity.hitBox.width/2)-25/2,this.entity.position.y-this.entity.hitBox.height/2,this.weapon.img),this.weapon));
     this.cooldown=true;
 } 
+}
+getHit()
+{
+    if(!this.invuln)
+    {
+        if(this.shield>0)
+        {
+            if(this.regen!=null)clearTimeout(this.regen);
+            this.shield--;
+            console.log(this.shield);
+            this.invuln=true;
+            this.regen=setTimeout(() => {
+                this.upShields();
+            }, 10000);
+            
+        }
+        else if(this.hull>0)
+        {
+            this.hull--;
+            this.invuln=true;
+            console.log("hull hit");
+        }
+        else{ this.entity.explode("./img/explosion.png");
+        setTimeout(() => {
+            console.log("game over");
+        }, 500);
+    }
+    }
+    if (this.invuln){
+        setTimeout(() => {
+            this.invuln=false;
+        }, 500);
+    }
+}
+upShields()
+{
+    this.shield++;
+                console.log("shield recharging");
+                if(this.shield<2)
+                this.regen=setTimeout(()=>{
+                    this.upShields();
+                },2000);
 }
 }
