@@ -1,10 +1,10 @@
 <script>
-import { onUnmounted } from 'vue';
-
 	export default{
 		name:"PlayerComponent",
 		data(){
 			return{
+				gameover: false,
+				//PLAYER
 				mov: 3,
 				quadro: null,
 				directionX: 0,
@@ -12,21 +12,34 @@ import { onUnmounted } from 'vue';
 				idPlayer: null,
 				idGame: null,
 				leftDistance: 0,
-				bullets: []
+				bullets: [],
+				//ENEMY
+				enemy: [],
+				tab: null, //tab
+				myVar: 0, //mettere 400
+				margin: 0,
+				actualHeight: 0,
+				l: window.innerHeight,
+				w: window.innerWidth,
+				direction: 1,
+				x: 0,
+				y: 0,
 			}
+		},
+		components(){
+
 		},
 		methods:{
 			start(){
-				console.log("ENTRO DENTRO START");
-				console.log(this.directionX);
+				console.log("Inizializzo PlayerComponent");
 				window.addEventListener('keydown', this.getKeyCod);
 				window.addEventListener('keyup', this.resetKey);
+				this.myVar = setInterval(this.spostaDiv, 50);
 			},
 			MovePlayer() {
 				let likeQuadro = document.getElementById("player");
 				this.leftDistance = likeQuadro.offsetLeft;
 				this.quadro = likeQuadro;
-				console.log(this.directionX);
 				if(this.leftDistance <= 0){
 					this.leftDistance = 5;
 					this.directionX = 0;
@@ -51,11 +64,12 @@ import { onUnmounted } from 'vue';
 					this.directionX = 1;
 				} else if (e.keyCode == 37) {
 					this.directionX = -1;
-				} else if (e.keyCode == 32) {
+				}
+				if (e.keyCode == 32) {
 					/*TODO: SPARA CON BARRA SPAZIATRICE*/
-					this.shoot();
-				}else{
-					this.directionX = 0;	
+					if(this.bullets.length <= 5){
+						this.shoot();
+					}
 				}
 				if(this.directionX != 0){
 					clearInterval(this.idPlayer);
@@ -70,14 +84,12 @@ import { onUnmounted } from 'vue';
 			},
 			shoot(){
 				this.bullets.push(this.addElement());
-				console.log(this.bullets);
 			},
 			addElement () { 
 				// create a new div element 
 				let newDiv = document.createElement("div"); 
 				newDiv.className='bullet';
 				newDiv.id='bullet';
-				console.log(this.leftDistance);
 				newDiv.style.top = this.quadro.offsetTop + "px";
 				newDiv.style.left = (this.leftDistance + this.quadro.offsetWidth/2) + "px";
 				newDiv.style.width= "5px"; 
@@ -96,17 +108,21 @@ import { onUnmounted } from 'vue';
 			update(i){
 				let bullet = this.bullets[i];
 				//I'm updating the bullet's y position.
-				let mov = 1;
+				let speed = 2;
 				let y = bullet.offsetTop;
-				y -= mov;
+				y -= speed;
+				if(this.checkCollision(i,this.enemy)){
+					this.removeBullet(this.bullets,i);
+				}
 				if(y <= 0){
-					this.removeElement(this.bullets,i);
+					this.removeBullet(this.bullets,i);
 				}
 				bullet.style.top=y+"px";
 				
 			},
-			removeElement(elements,i){
+			removeBullet(elements,i){
 				var div = elements[i];
+				
 				let newBullets = [];
 				for(let j = 0; j < elements.length; j++){
 					if(elements[j] == div){
@@ -116,6 +132,73 @@ import { onUnmounted } from 'vue';
 				}
 				this.bullets = newBullets;
 				div.parentNode.removeChild(div);
+			},spostaDiv() {
+				this.enemy = document.getElementsByClassName("enemy");
+				if(this.checkDefeat()){
+					this.gameover = true;
+					clearInterval(this.idGame);
+					clearInterval(this.idPlayer);
+					return;
+				}
+				if(this.direction == 1){
+				if (this.margin >= this.w - this.tab.offsetWidth) {
+					this.margin = (this.w - this.tab.offsetWidth - 1);
+					this.direction = 0;
+					this.actualHeight += 35;
+					this.tab.style.marginTop = this.actualHeight + "px";
+				} else {
+					this.margin += 7;
+					this.tab.style.marginLeft = this.margin + "px";
+				}
+				} else{
+					if (this.margin <= 0) {
+						this.margin = 1 ;
+						this.direction = 1;
+						this.actualHeight += window.innerHeight/10;
+						this.tab.style.marginTop = this.actualHeight + "px";
+					} else {
+						this.margin -= 7;
+						this.tab.style.marginLeft = this.margin + "px";
+					}
+					
+				}
+			},checkCollision(bulletI, targetList) {
+				var bullet = this.bullets[bulletI];
+				var circle={x:bullet.offsetLeft,y:bullet.offsetTop,r:bullet.offsetWidth/2};
+				for(var i = 0; i < targetList.length; i++){
+					var rect={x:targetList[i].offsetLeft,y:targetList[i].offsetTop,w:targetList[i].offsetWidth,h:targetList[i].offsetHeight};
+					var distX = Math.abs(circle.x - rect.x-rect.w/2);
+					var distY = Math.abs(circle.y - rect.y-rect.h/2);
+					
+					if (distX > (rect.w/2 + circle.r)) { continue; }
+					if (distY > (rect.h/2 + circle.r)) { continue; }
+					if (distX <= (rect.w/2)) {
+						this.removeEnemy(targetList[i].id);
+						return true; 
+					} 
+					if (distY <= (rect.h/2)) {
+						this.removeEnemy(targetList[i].id); 
+						return true; 
+					}
+				}
+				return false;
+			},removeEnemy(enemyId){
+				let div = document.getElementById(enemyId);
+				let newEnemy = [];
+				for(let j = 0; j < this.enemy.length; j++){
+					if(this.enemy[j] == div){
+						continue;
+					}
+					newEnemy.push(this.enemy[j]);
+				}
+				this.enemy = newEnemy;
+				div.parentNode.removeChild(div);
+			},checkDefeat(){
+				for(let i = 0; i < this.enemy.length; i++){
+					if((this.enemy[i].offsetTop+this.enemy[i].offsetWidth) >= this.quadro.offsetTop)
+						return true;
+				}
+				return false;
 			}
 		},
 		created(){
@@ -128,6 +211,8 @@ import { onUnmounted } from 'vue';
 		},
 		mounted(){
 			this.quadro = document.getElementById("player");
+			this.enemy = document.getElementsByClassName("enemy");
+			this.tab = document.getElementById("tab");
 		},
 		unmounted(){
 			window.removeEventListener('keyup',this.resetKey);
@@ -137,7 +222,19 @@ import { onUnmounted } from 'vue';
 </script>
 
 <template>
-    <div id="player" class="ship"></div>
+	<div>
+		
+		<div v-if="!this.gameover" id="tab" class="divTable">
+			<div class="divRow" v-for="(x,i) in 4" :key="i">
+				<div class="divCell" align="center" v-for="(y,j) in 11" :key="j">
+					<div :id="11*i+j" class="enemy"></div>
+				</div>
+			</div>
+		</div>
+		<div  v-if="!this.gameover" id="player" class="ship"></div>
+		<b v-if="this.gameover" style="background-color: red; position: absolute;">GAMEOVER!</b>
+	</div>
+    
 </template>
 
 <style>
@@ -145,7 +242,6 @@ import { onUnmounted } from 'vue';
 	background-color: rgb(0, 255, 0);
 	position: absolute;
 	top:90%; 
-	bottom:0%; 
 	right:50%;
 	width: 60px; 
 	height: 30px;
@@ -157,4 +253,33 @@ import { onUnmounted } from 'vue';
 	border-radius: 50%
 }
 
+.enemy {
+	background-color: rgb(255, 0, 0);
+	width: 35px; 
+	height: 35px;
+	border-radius: 50%;
+}
+
+.divTable{
+	display:table;
+	border-spacing:20px;
+	width: 80%;
+}
+
+.divRow{
+	display:table-row;
+	width:auto;
+}
+
+.divCell{
+	float:left;/*fix for  buggy browsers*/
+	display:table-column;
+	width:85px;
+	height: 35px;
+}.bulletEnemy {
+	width: 5px; 
+	height: 5px; 
+	background-color: rgb(255, 111, 0); 
+	border-radius: 50%
+}
 </style>
