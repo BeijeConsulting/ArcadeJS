@@ -5,20 +5,16 @@ import {java , oca , vue , rubrica , h8 , git , js ,
         spring , aws , eclipse , mysql , intellij, postman, html,
         zoom , discord , front} from "./ToolsList.js";
 
+const score = document.getElementById("score");
+const scoreBase=50;
+let scoreResult=0;
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
-
-const scoreBase=50;
-
-const score = document.getElementById("score");
-let scoreResult=0;
-
 canvas.width = 750;
 canvas.height = 750;
 
 const bulletController = new BulletController(canvas);
-
 const player = new  Rocket( (canvas.width/2),canvas.height-70,bulletController);
 
 
@@ -44,6 +40,12 @@ const enemies = [
   new Alien(250, 280, zoom),
   new Alien(450, 280, discord),
 ];
+
+document.getElementById("reset").addEventListener('click', function(e) {
+  console.log("reset");
+  gameInit();
+}, false);
+
 
 
 
